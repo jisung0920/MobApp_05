@@ -80,4 +80,30 @@
         android:layout_weight="1"
         android:text="snackbar로 메세지"
         android:onClick="B_onClick"/>
+    <Button
+        android:layout_marginTop="20dp"
+        android:text="기본대화상자"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/b5"
+        android:onClick="B_onClick"/>
+    <Button
+        android:text="라디오대화상자"
+        android:id="@+id/b6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="B_onClick"/>
+    <Button
+        android:id="@+id/b7"
+
+        android:text="체크박스 대화상자"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="B_onClick"/>
+    <Button
+        android:text="사용자 지정 대화상자"
+        android:id="@+id/b8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="B_onClick"/>
 </LinearLayout>
