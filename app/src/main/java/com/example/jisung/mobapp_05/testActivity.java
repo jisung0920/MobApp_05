@@ -1,5 +1,6 @@
 package com.example.jisung.mobapp_05;
 
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -33,6 +34,15 @@ public class testActivity extends AppCompatActivity {
             toastView.setGravity(Gravity.CENTER,0,100);
             toastView.setView(view);
             toastView.show();
+        }
+        else if(v.getId() == R.id.b4){//ctrl+P 를 누르면 인자 확인
+            Snackbar.make(v,"Message",2000).setAction("OK", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getApplicationContext(),"ok",Toast.LENGTH_SHORT).show();
+                }
+            }).show();
+            //setAction (버튼내용, 이벤트 내용)
         }
 
     }
