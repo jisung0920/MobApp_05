@@ -114,7 +114,7 @@ public class testActivity extends AppCompatActivity {
         }
         else if(v.getId() == R.id.b8){
             View view = View.inflate(this,R.layout.editbox,null);
-            EditText e1 = (EditText)view.findViewById(R.id.e1);
+            final EditText e1 = (EditText)view.findViewById(R.id.e1);
             AlertDialog.Builder dlg = new AlertDialog.Builder(this);
             dlg.setTitle("먹고 싶은 메뉴는?")
                     .setView(view)
@@ -123,7 +123,7 @@ public class testActivity extends AppCompatActivity {
                     .setNegativeButton("확인", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Toast.makeText(getApplicationContext(),"확인을 눌렀습니다.",Toast.LENGTH_SHORT)
+                            Toast.makeText(getApplicationContext(),e1.getText().toString()+"입니다",Toast.LENGTH_SHORT)
                                     .show();
                         }
                     })
