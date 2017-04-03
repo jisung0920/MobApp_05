@@ -136,29 +136,38 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         }
         if(v.getId() == R.id.b1){
             final View view = View.inflate(getContext(),R.layout.editbox,null);
-            final EditText spa = (EditText)view.findViewById(R.id.spaN);
-            final EditText piz = (EditText)view.findViewById(R.id.pizN);
-            final RadioButton cardCheck = (RadioButton)view.findViewById(R.id.m1);
-            final int card;
 
-            if(cardCheck.isChecked())
-                card = 10;
-            else
-                card = 30;
+            final String time = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+                    .format(new Date(System.currentTimeMillis()));
+
+            TextView enterTime = (TextView)view.findViewById(R.id.enterTime);
+            enterTime.setText(time);
 
             AlertDialog.Builder dlg = new AlertDialog.Builder(getContext());
-            dlg.setTitle("먹고 싶은 메뉴는?")
+            dlg.setTitle(c[nowTable].getText().subSequence(0,8)+"입니다.")
                     .setView(view)
                     .setIcon(R.mipmap.ic_launcher)
                     .setPositiveButton("닫기",null)
                     .setNegativeButton("확인", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            String time = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
-                                    .format(new Date(System.currentTimeMillis()));
-                            Log.d("table1",time);//parse가 안된다. @@@@@@@@@@@@@@@@22
+
+                            EditText spa = (EditText)((AlertDialog)dialog).findViewById(R.id.spaN);//dialog 안에서 view 내용물 가져오기
+                            EditText piz = (EditText)((AlertDialog)dialog).findViewById(R.id.pizN);
+                            RadioButton cardCheck = (RadioButton)((AlertDialog)dialog).findViewById(R.id.m1);
+
+
+                            int card;
+                            if(cardCheck.isChecked())
+                                card = 10;
+                            else
+                                card = 30;
+
                             table[nowTable] = new tableInfo(nowTable,time
-                                  ,1,3,30);
+                                    ,Integer.parseInt(spa.getText().toString())
+                                    ,Integer.parseInt(piz.getText().toString())
+                                    ,card);
+
                             c[nowTable].setText(table[nowTable].getName());
                             tableSetting(table[nowTable]);
 
@@ -176,20 +185,43 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         else if(v.getId() == R.id.b2){//정보 받아오고 parsing @@@@@@@@@@@@@@@2
             final View view = View.inflate(getContext(),R.layout.editbox,null);
 
+            if(table[nowTable]==null)
+                return;
+            EditText spa = (EditText)view.findViewById(R.id.spaN);
+            EditText piz = (EditText)view.findViewById(R.id.pizN);
+            RadioButton nomal = (RadioButton)view.findViewById(R.id.m1);
+            RadioButton vip = (RadioButton)view.findViewById(R.id.m2);
+            TextView enterTime = (TextView)view.findViewById(R.id.enterTime);
+            int card = table[nowTable].getCard();
+            if(card==10)
+                nomal.setChecked(true);
+            else
+                vip.setChecked(false);
+
+
+            spa.setText(table[nowTable].getSpaNum()+"");
+            piz.setText(table[nowTable].getPizNum()+"");
+            enterTime.setText(table[nowTable].getDate());
+
             AlertDialog.Builder dlg = new AlertDialog.Builder(getContext());
-            dlg.setTitle("먹고 싶은 메뉴는?")
+            dlg.setTitle(c[nowTable].getText().subSequence(0,8)+"입니다.")
                     .setView(view)
                     .setIcon(R.mipmap.ic_launcher)
                     .setPositiveButton("닫기",null)
                     .setNegativeButton("확인", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            String time = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
-                                    .format(new Date(System.currentTimeMillis()));
-                            Log.d("table1",time);//parse가 안된다.
-                            table[nowTable] = new tableInfo(nowTable,time
-                                    ,1,3,30);
-                            c[nowTable].setText(table[nowTable].getName());
+                            EditText spa = (EditText)((AlertDialog)dialog).findViewById(R.id.spaN);//dialog 안에서 view 내용물 가져오기
+                            EditText piz = (EditText)((AlertDialog)dialog).findViewById(R.id.pizN);
+                            RadioButton cardCheck = (RadioButton)((AlertDialog)dialog).findViewById(R.id.m1);
+                            int card;
+                            if(cardCheck.isChecked())
+                                card = 10;
+                            else
+                                card = 30;
+                            table[nowTable].setSpaNum(Integer.parseInt(spa.getText().toString()));
+                            table[nowTable].setPizNum(Integer.parseInt(piz.getText().toString()));
+                            table[nowTable].setCard(card);
                             tableSetting(table[nowTable]);
 
                             Snackbar.make(getView(),"정보가 수정되었습니다.",2000).setAction("OK", new View.OnClickListener() {//view 대신 getView()
