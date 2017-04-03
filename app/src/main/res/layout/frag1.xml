@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="사과 Table"
+            android:text="사과 Table(비어있음)"
 />
 
         <Button
@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="자몽 Table"
+            android:text="자몽 Table(비어있음)"
 />
 
     </LinearLayout>
@@ -123,7 +123,9 @@
 
                 />
         </TableRow>
-        <TableRow>
+        <TableRow
+            android:background="#e9a1ba"
+            >
             <TextView
 
                 android:layout_height="wrap_content"

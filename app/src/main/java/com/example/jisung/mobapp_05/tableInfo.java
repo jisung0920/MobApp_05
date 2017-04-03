@@ -14,6 +14,9 @@ public class tableInfo {
     private int card;
     private String price;
 
+    public tableInfo(){
+
+    }
     public tableInfo( int table,String date, int spaNum, int pizNum, int card) {
         switch (table){
             case 0:
