@@ -8,14 +8,29 @@ import java.util.Date;
 
 public class tableInfo {
     private String name;
-    private Date date;
+    private String date;
     private int spaNum;
     private int pizNum;
     private int card;
     private String price;
 
-    public tableInfo(String name, Date date, int spaNum, int pizNum, int card) {
-        this.name = name;
+    public tableInfo( int table,String date, int spaNum, int pizNum, int card) {
+        switch (table){
+            case 0:
+                this.name = "사과 Table";
+                break;
+            case 1:
+                this.name = "포도 Table";
+                break;
+            case 2:
+                this.name = "키위 Table";
+                break;
+            case 3:
+                this.name = "자몽 Table";
+                break;
+            default:
+                break;
+        }
         this.date = date;
         this.spaNum = spaNum;
         this.pizNum = pizNum;
@@ -30,11 +45,11 @@ public class tableInfo {
         this.name = name;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
