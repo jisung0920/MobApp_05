@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 /**
  * Created by jisung on 2017-03-30.
@@ -32,6 +35,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     Button b1,b2,b3;
     tableInfo[] table;
     int nowTable=0;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -39,6 +43,17 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         init(fragview);
         return fragview;
     }
+
+
+    Boolean EditNull(EditText e,View v){
+        if(e.getText().toString().equals("")) {
+            Toast.makeText(v.getContext(), "정보를 입력하세요.", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else
+            return false;
+    }
+
 
     void init(View v){
 
@@ -97,10 +112,18 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+
         switch (v.getId()){
             case R.id.c1:
                 if(table[0]==null){
-                    Toast.makeText(getActivity(),"비어있는 테이블입니다.",Toast.LENGTH_SHORT).show();
+                    View V = getActivity().getLayoutInflater().inflate(R.layout.mytoastxml,null);
+                    TextView msg = (TextView)V.findViewById(R.id.msg);
+                    msg.setText("비어있는 테이블입니다.");
+                    Toast toast = new Toast(getActivity());
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER,0,100);
+                    toast.setView(V);
+                    toast.show();
                     tableEmptySetting();
                 }
                 else
@@ -109,7 +132,14 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                 break;
             case R.id.c2:
                 if(table[1]==null){
-                    Toast.makeText(getActivity(),"비어있는 테이블입니다.",Toast.LENGTH_SHORT).show();
+                    View V = getActivity().getLayoutInflater().inflate(R.layout.mytoastxml,null);
+                    TextView msg = (TextView)V.findViewById(R.id.msg);
+                    msg.setText("비어있는 테이블입니다.");
+                    Toast toast = new Toast(getActivity());
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER,0,100);
+                    toast.setView(V);
+                    toast.show();
                     tableEmptySetting();}
                 else
                     tableSetting(table[1]);
@@ -117,7 +147,14 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                 break;
             case R.id.c3:
                 if(table[2]==null){
-                    Toast.makeText(getActivity(),"비어있는 테이블입니다.",Toast.LENGTH_SHORT).show();
+                    View V = getActivity().getLayoutInflater().inflate(R.layout.mytoastxml,null);
+                    TextView msg = (TextView)V.findViewById(R.id.msg);
+                    msg.setText("비어있는 테이블입니다.");
+                    Toast toast = new Toast(getActivity());
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER,0,100);
+                    toast.setView(V);
+                    toast.show();
                     tableEmptySetting();}
                 else
                     tableSetting(table[2]);
@@ -125,7 +162,14 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                 break;
             case R.id.c4:
                 if(table[3]==null){
-                    Toast.makeText(getActivity(),"비어있는 테이블입니다.",Toast.LENGTH_SHORT).show();
+                    View V = getActivity().getLayoutInflater().inflate(R.layout.mytoastxml,null);
+                    TextView msg = (TextView)V.findViewById(R.id.msg);
+                    msg.setText("비어있는 테이블입니다.");
+                    Toast toast = new Toast(getActivity());
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER,0,100);
+                    toast.setView(V);
+                    toast.show();
                     tableEmptySetting();}
                 else
                     tableSetting(table[3]);
@@ -134,9 +178,11 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
             default:
                 break;
         }
-        if(v.getId() == R.id.b1){
-            final View view = View.inflate(getContext(),R.layout.editbox,null);
 
+
+        if(v.getId() == R.id.b1){
+
+            final View view = View.inflate(getContext(),R.layout.editbox,null);
             final String time = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
                     .format(new Date(System.currentTimeMillis()));
 
@@ -155,13 +201,14 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                             EditText spa = (EditText)((AlertDialog)dialog).findViewById(R.id.spaN);//dialog 안에서 view 내용물 가져오기
                             EditText piz = (EditText)((AlertDialog)dialog).findViewById(R.id.pizN);
                             RadioButton cardCheck = (RadioButton)((AlertDialog)dialog).findViewById(R.id.m1);
-
-
                             int card;
                             if(cardCheck.isChecked())
                                 card = 10;
                             else
                                 card = 30;
+
+                            if(EditNull(spa,view)||EditNull(piz,view))
+                                return ;
 
                             table[nowTable] = new tableInfo(nowTable,time
                                     ,Integer.parseInt(spa.getText().toString())
@@ -189,6 +236,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                 return;
             EditText spa = (EditText)view.findViewById(R.id.spaN);
             EditText piz = (EditText)view.findViewById(R.id.pizN);
+
             RadioButton nomal = (RadioButton)view.findViewById(R.id.m1);
             RadioButton vip = (RadioButton)view.findViewById(R.id.m2);
             TextView enterTime = (TextView)view.findViewById(R.id.enterTime);
@@ -213,6 +261,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                         public void onClick(DialogInterface dialog, int which) {
                             EditText spa = (EditText)((AlertDialog)dialog).findViewById(R.id.spaN);//dialog 안에서 view 내용물 가져오기
                             EditText piz = (EditText)((AlertDialog)dialog).findViewById(R.id.pizN);
+
                             RadioButton cardCheck = (RadioButton)((AlertDialog)dialog).findViewById(R.id.m1);
                             int card;
                             if(cardCheck.isChecked())
@@ -241,6 +290,14 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
             c[nowTable].setText(table[nowTable].getName()+"(비어있음)");
             tableEmptySetting();
             table[nowTable]=null;
+            View V = getActivity().getLayoutInflater().inflate(R.layout.mytoastxml,null);
+            TextView msg = (TextView)V.findViewById(R.id.msg);
+            msg.setText("초기화 되었습니다.");
+            Toast toast = new Toast(getActivity());
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER,0,100);
+            toast.setView(V);
+            toast.show();
         }
 
     }

@@ -21,6 +21,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="number"
         android:id="@+id/spaN"/>
 
     <TextView
@@ -30,7 +31,9 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/pizN"/>
+        android:id="@+id/pizN"
+        android:inputType="number"
+        />
 
     <TextView
         android:layout_width="match_parent"
@@ -48,6 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="일반 멤버쉽"
+            android:checked="true"
             />
         <RadioButton
             android:id="@+id/m2"

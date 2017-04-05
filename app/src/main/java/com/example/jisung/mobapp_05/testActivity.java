@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 public class testActivity extends AppCompatActivity {
 
-    int index;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
